@@ -11,6 +11,7 @@ object YouIPlugin extends AutoPlugin {
   object autoImport {
     val youiVersion: SettingKey[String] = settingKey[String]("YouI version to use. Defaults to the same version as the plugin.")
     val youiServer: SettingKey[String] = settingKey[String]("YouI server implementation to use. Defaults to 'undertow'.")
+    val youiInclude: SettingKey[Boolean] = settingKey[Boolean]("Whether YouI dependencies should be automatically included. Defaults to true.")
 
     def crossApplication: PartialCrossApplication = macro CrossApplication.partial
 

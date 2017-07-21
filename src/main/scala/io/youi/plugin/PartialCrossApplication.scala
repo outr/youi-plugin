@@ -16,14 +16,15 @@ class PartialCrossApplication(id: String) {
     val jvmApp = jvmResources / "app"
     val defaultSettings = Seq(
       youiVersion := BuildInfo.version,
-      youiServer := "undertow"
+      youiServer := "undertow",
+      youiInclude := true
     )
     CrossApplication(
       js = Project(s"${id}JS", new File(dir, "js"), settings = defaultSettings),
       jvm = Project(s"${id}JVM", new File(dir, "jvm"), settings = defaultSettings)
     ).settings(
       // Add youi-app
-      libraryDependencies += "io.youi" %%% "youi-app" % youiVersion.value,
+      libraryDependencies ++= (if (youiInclude.value) Seq("io.youi" %%% "youi-app" % youiVersion.value) else Nil),
       // Add shared source
       unmanagedSourceDirectories in Compile ++= {
         makeCrossSources(Some(sharedSource / "main" / "scala"), scalaBinaryVersion.value, crossPaths.value)
@@ -44,7 +45,7 @@ class PartialCrossApplication(id: String) {
     ).enableJSPlugins(
       ScalaJSPlugin
     ).jvmSettings(
-      libraryDependencies += "io.youi" %% s"youi-server-${youiServer.value}" % youiVersion.value,
+      libraryDependencies ++= (if (youiInclude.value) Seq("io.youi" %% s"youi-server-${youiServer.value}" % youiVersion.value) else Nil),
       cancelable in Global := true,
       fork in run := true
     )
