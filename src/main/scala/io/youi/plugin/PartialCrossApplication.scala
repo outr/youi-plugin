@@ -15,7 +15,7 @@ class PartialCrossApplication(id: String) {
     val jvmResources = jvmSource / "main" / "resources"
     val jvmApp = jvmResources / "app"
     val defaultSettings = Seq(
-      youiVersion := "0.5.0-SNAPSHOT",      // TODO: figure out how to reference the plugin version
+      youiVersion := BuildInfo.version,
       youiServer := "undertow"
     )
     CrossApplication(
