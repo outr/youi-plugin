@@ -1,16 +1,17 @@
 package io.youi.plugin
 
 import sbt._
+import Keys._
 import org.scalajs.sbtplugin.cross.CrossProject
 
 import scala.language.experimental.macros
 import scala.language.implicitConversions
 
 object YouIPlugin extends AutoPlugin {
-  // TODO: add youi dependencies?
-  // TODO: restart?
-
   object autoImport {
+    val youiVersion: SettingKey[String] = settingKey[String]("YouI version to use. Defaults to the same version as the plugin.")
+    val youiServer: SettingKey[String] = settingKey[String]("YouI server implementation to use. Defaults to 'undertow'.")
+
     def crossApplication: PartialCrossApplication = macro CrossApplication.partial
 
     implicit def crossApplicationDependency(ca: CrossApplication): CrossApplicationDependencies = {

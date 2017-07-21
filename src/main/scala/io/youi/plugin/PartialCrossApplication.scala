@@ -6,16 +6,24 @@ import org.scalajs.sbtplugin.ScalaJSPlugin
 import org.scalajs.sbtplugin.ScalaJSPlugin.autoImport._
 
 class PartialCrossApplication(id: String) {
+  import YouIPlugin.autoImport._
+
   def in(dir: File): CrossApplication = {
     val baseDir = dir.getAbsoluteFile
     val sharedSource = baseDir / "shared" / "src"
     val jvmSource = baseDir / "jvm" / "src"
     val jvmResources = jvmSource / "main" / "resources"
     val jvmApp = jvmResources / "app"
+    val defaultSettings = Seq(
+      youiVersion := "0.5.0-SNAPSHOT",      // TODO: figure out how to reference the plugin version
+      youiServer := "undertow"
+    )
     CrossApplication(
-      js = Project(s"${id}JS", new File(dir, "js")),
-      jvm = Project(s"${id}JVM", new File(dir, "jvm"))
+      js = Project(s"${id}JS", new File(dir, "js"), settings = defaultSettings),
+      jvm = Project(s"${id}JVM", new File(dir, "jvm"), settings = defaultSettings)
     ).settings(
+      // Add youi-app
+      libraryDependencies += "io.youi" %%% "youi-app" % youiVersion.value,
       // Add shared source
       unmanagedSourceDirectories in Compile ++= {
         makeCrossSources(Some(sharedSource / "main" / "scala"), scalaBinaryVersion.value, crossPaths.value)
@@ -36,6 +44,7 @@ class PartialCrossApplication(id: String) {
     ).enableJSPlugins(
       ScalaJSPlugin
     ).jvmSettings(
+      libraryDependencies += "io.youi" %% s"youi-server-${youiServer.value}" % youiVersion.value,
       cancelable in Global := true,
       fork in run := true
     )
