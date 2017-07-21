@@ -33,7 +33,12 @@ class PartialCrossApplication(id: String) {
       artifactPath in Compile in packageMinifiedJSDependencies := jvmApp / "application-jsdeps.min.js",
       artifactPath in Test in packageMinifiedJSDependencies := jvmApp / "application-jsdeps.min.js",
       skip in packageJSDependencies := false
-    ).enableJSPlugins(ScalaJSPlugin)
+    ).enableJSPlugins(
+      ScalaJSPlugin
+    ).jvmSettings(
+      cancelable in Global := true,
+      fork in run := true
+    )
   }
 
   // Inspired by sbt's Defaults.makeCrossSources

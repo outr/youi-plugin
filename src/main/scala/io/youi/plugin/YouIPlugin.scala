@@ -1,17 +1,15 @@
 package io.youi.plugin
 
 import sbt._
-import Keys._
-import org.scalajs.sbtplugin.ScalaJSPlugin
-import org.scalajs.sbtplugin.ScalaJSPlugin.autoImport._
 import org.scalajs.sbtplugin.cross.CrossProject
 
 import scala.language.experimental.macros
-import scala.reflect.macros.Context
-
 import scala.language.implicitConversions
 
 object YouIPlugin extends AutoPlugin {
+  // TODO: add youi dependencies?
+  // TODO: restart?
+
   object autoImport {
     def crossApplication: PartialCrossApplication = macro CrossApplication.partial
 
