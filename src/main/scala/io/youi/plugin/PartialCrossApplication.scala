@@ -15,7 +15,7 @@ class PartialCrossApplication(id: String) {
     val jvmResources = jvmSource / "main" / "resources"
     val jvmApp = jvmResources / "app"
     val defaultSettings = Seq(
-      youiVersion := BuildInfo.version,
+      youiVersion := "",
       youiServer := "undertow",
       youiInclude := true
     )
@@ -24,7 +24,12 @@ class PartialCrossApplication(id: String) {
       jvm = Project(s"${id}JVM", new File(dir, "jvm"), settings = defaultSettings)
     ).settings(
       // Add youi-app
-      libraryDependencies ++= (if (youiInclude.value) Seq("io.youi" %%% "youi-app" % youiVersion.value) else Nil),
+      libraryDependencies ++= (if (youiInclude.value) {
+        assert(youiVersion.value.nonEmpty, "youiVersion must be set to the version of YouI you wish to use.")
+        Seq("io.youi" %%% "youi-app" % youiVersion.value)
+      } else {
+        Nil
+      }),
       // Add shared source
       unmanagedSourceDirectories in Compile ++= {
         makeCrossSources(Some(sharedSource / "main" / "scala"), scalaBinaryVersion.value, crossPaths.value)
@@ -45,7 +50,12 @@ class PartialCrossApplication(id: String) {
     ).enableJSPlugins(
       ScalaJSPlugin
     ).jvmSettings(
-      libraryDependencies ++= (if (youiInclude.value) Seq("io.youi" %% s"youi-server-${youiServer.value}" % youiVersion.value) else Nil),
+      libraryDependencies ++= (if (youiInclude.value) {
+        assert(youiVersion.value.nonEmpty, "youiVersion must be set to the version of YouI you wish to use.")
+        Seq("io.youi" %% s"youi-server-${youiServer.value}" % youiVersion.value)
+      } else {
+        Nil
+      }),
       cancelable in Global := true,
       fork in run := true
     )
