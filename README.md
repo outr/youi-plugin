@@ -1,2 +1,2 @@
 # youi-plugin
-SBT plugin for use with YouI projects
+SBT plugin for use with youi projects

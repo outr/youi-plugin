@@ -25,7 +25,7 @@ class PartialCrossApplication(id: String) {
     ).settings(
       // Add youi-app
       libraryDependencies ++= (if (youiInclude.value) {
-        assert(youiVersion.value.nonEmpty, "youiVersion must be set to the version of YouI you wish to use.")
+        assert(youiVersion.value.nonEmpty, "youiVersion must be set to the version of youi you wish to use.")
         Seq("io.youi" %%% "youi-app" % youiVersion.value)
       } else {
         Nil
@@ -51,7 +51,7 @@ class PartialCrossApplication(id: String) {
       ScalaJSPlugin
     ).jvmSettings(
       libraryDependencies ++= (if (youiInclude.value) {
-        assert(youiVersion.value.nonEmpty, "youiVersion must be set to the version of YouI you wish to use.")
+        assert(youiVersion.value.nonEmpty, "youiVersion must be set to the version of youi you wish to use.")
         Seq("io.youi" %% s"youi-server-${youiServer.value}" % youiVersion.value)
       } else {
         Nil
