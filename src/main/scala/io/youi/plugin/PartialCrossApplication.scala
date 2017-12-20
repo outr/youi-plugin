@@ -20,8 +20,8 @@ class PartialCrossApplication(id: String) {
       youiInclude := true
     )
     CrossApplication(
-      js = Project(s"${id}JS", new File(dir, "js"), settings = defaultSettings),
-      jvm = Project(s"${id}JVM", new File(dir, "jvm"), settings = defaultSettings)
+      js = Project(s"${id}JS", new File(dir, "js")).settings(defaultSettings),
+      jvm = Project(s"${id}JVM", new File(dir, "jvm")).settings(defaultSettings)
     ).settings(
       // Add youi-app
       libraryDependencies ++= (if (youiInclude.value) {
