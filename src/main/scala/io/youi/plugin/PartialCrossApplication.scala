@@ -38,14 +38,14 @@ class PartialCrossApplication(id: String) {
         makeCrossSources(Some(sharedSource / "test" / "scala"), scalaBinaryVersion.value, crossPaths.value)
       }
     ).jsSettings(
-      artifactPath in Compile in fastOptJS := jvmApp / "application-fastopt.js",
-      artifactPath in Test in fastOptJS := jvmApp / "application-fastopt.js",
-      artifactPath in Compile in fullOptJS := jvmApp / "application.js",
-      artifactPath in Test in fullOptJS := jvmApp / "application.js",
-      artifactPath in Compile in packageJSDependencies := jvmApp / "application-jsdeps.js",
-      artifactPath in Test in packageJSDependencies := jvmApp / "application-jsdeps.js",
-      artifactPath in Compile in packageMinifiedJSDependencies := jvmApp / "application-jsdeps.min.js",
-      artifactPath in Test in packageMinifiedJSDependencies := jvmApp / "application-jsdeps.min.js",
+      artifactPath in Compile in fastOptJS := jvmApp / "application-fastopt.js.youi",
+      artifactPath in Test in fastOptJS := jvmApp / "application-fastopt.js.youi",
+      artifactPath in Compile in fullOptJS := jvmApp / "application.js.youi",
+      artifactPath in Test in fullOptJS := jvmApp / "application.js.youi",
+      artifactPath in Compile in packageJSDependencies := jvmApp / "application-jsdeps.js.youi",
+      artifactPath in Test in packageJSDependencies := jvmApp / "application-jsdeps.js.youi",
+      artifactPath in Compile in packageMinifiedJSDependencies := jvmApp / "application-jsdeps.min.js.youi",
+      artifactPath in Test in packageMinifiedJSDependencies := jvmApp / "application-jsdeps.min.js.youi",
       skip in packageJSDependencies := false
     ).enableJSPlugins(
       ScalaJSPlugin
