@@ -1,6 +1,6 @@
 name := "youi-plugin"
 organization := "io.youi"
-version := "1.1.0-SNAPSHOT"
+version := "1.1.0"
 sbtPlugin := true
 crossSbtVersions := Vector("0.13.18", "1.3.2")
 
