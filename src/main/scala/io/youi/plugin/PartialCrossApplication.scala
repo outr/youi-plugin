@@ -17,7 +17,11 @@ class PartialCrossApplication(id: String) {
     val defaultSettings = Seq(
       youiVersion := "",
       youiServer := "undertow",
-      youiInclude := true
+      youiInclude := true,
+      youiAddExtension := ".youi",
+      youiPath := jvmApp,
+      youiFastOpt := "-fastopt",
+      youiFullOpt := "-fullopt"
     )
     CrossApplication(
       js = Project(s"${id}JS", new File(dir, "js")).settings(defaultSettings),
@@ -38,14 +42,14 @@ class PartialCrossApplication(id: String) {
         makeCrossSources(Some(sharedSource / "test" / "scala"), scalaBinaryVersion.value, crossPaths.value)
       }
     ).jsSettings(
-      artifactPath in Compile in fastOptJS := jvmApp / "application-fastopt.js.youi",
-      artifactPath in Test in fastOptJS := jvmApp / "application-fastopt.js.youi",
-      artifactPath in Compile in fullOptJS := jvmApp / "application.js.youi",
-      artifactPath in Test in fullOptJS := jvmApp / "application.js.youi",
-      artifactPath in Compile in packageJSDependencies := jvmApp / "application-jsdeps.js.youi",
-      artifactPath in Test in packageJSDependencies := jvmApp / "application-jsdeps.js.youi",
-      artifactPath in Compile in packageMinifiedJSDependencies := jvmApp / "application-jsdeps.min.js.youi",
-      artifactPath in Test in packageMinifiedJSDependencies := jvmApp / "application-jsdeps.min.js.youi",
+      artifactPath in Compile in fastOptJS := youiPath.value / s"application${youiFastOpt.value}.js${youiAddExtension.value}",
+      artifactPath in Test in fastOptJS := youiPath.value / s"application${youiFastOpt.value}.js${youiAddExtension.value}",
+      artifactPath in Compile in fullOptJS := youiPath.value / s"application${youiFullOpt.value}.js${youiAddExtension.value}",
+      artifactPath in Test in fullOptJS := youiPath.value / s"application${youiFullOpt.value}.js${youiAddExtension.value}",
+      artifactPath in Compile in packageJSDependencies := youiPath.value / s"application-jsdeps.js${youiAddExtension.value}",
+      artifactPath in Test in packageJSDependencies := youiPath.value / s"application-jsdeps.js${youiAddExtension.value}",
+      artifactPath in Compile in packageMinifiedJSDependencies := youiPath.value / s"application-jsdeps.min.js${youiAddExtension.value}",
+      artifactPath in Test in packageMinifiedJSDependencies := youiPath.value / s"application-jsdeps.min.js${youiAddExtension.value}",
       skip in packageJSDependencies := false
     ).enableJSPlugins(
       ScalaJSPlugin

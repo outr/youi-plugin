@@ -1,8 +1,8 @@
 name := "youi-plugin"
 organization := "io.youi"
-version := "1.0.3"
+version := "1.1.0-SNAPSHOT"
 sbtPlugin := true
-crossSbtVersions := Vector("0.13.17", "1.1.0")
+crossSbtVersions := Vector("0.13.18", "1.3.2")
 
 // Workaround for https://github.com/sbt/sbt/issues/3393
 // This will be solved in sbt 0.13.17
@@ -10,6 +10,8 @@ libraryDependencies += {
   val currentSbtVersion = (sbtBinaryVersion in pluginCrossBuild).value
   Defaults.sbtPluginExtra("org.scala-js" % "sbt-scalajs" % "0.6.22", currentSbtVersion, (scalaBinaryVersion in update).value)
 }
+
+//addSbtPlugin("org.scala-js" % "sbt-scalajs" % "0.6.29")
 
 libraryDependencies += "org.scala-lang" % "scala-reflect" % scalaVersion.value
 
