@@ -15,7 +15,7 @@ object YouIPlugin extends AutoPlugin {
     val youiAddExtension: SettingKey[String] = settingKey[String]("Defines the extension to add to copied files. Set to empty String to leaver original. Defaults to '.youi'.")
     val youiPath: SettingKey[File] = settingKey[File]("Defines the directory Scala.js files are output to. Defaults to the JVM project's `src/main/resources/app` directory.")
     val youiFastOpt: SettingKey[String] = settingKey[String]("Defines the extra part of the file name for fastOptJS. Set to blank String to exclude. Defaults to '-fastopt'.")
-    val youiFullOpt: SettingKey[String] = settingKey[String]("Defines the extra part of the file name for fullOptJS. Set to blank String to exclude. Defaults to '-fullopt'.")
+    val youiFullOpt: SettingKey[String] = settingKey[String]("Defines the extra part of the file name for fullOptJS. Set to blank String to exclude. Defaults to blank.")
 
     def crossApplication: PartialCrossApplication = macro CrossApplication.partial
 

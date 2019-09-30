@@ -21,7 +21,7 @@ class PartialCrossApplication(id: String) {
       youiAddExtension := ".youi",
       youiPath := jvmApp,
       youiFastOpt := "-fastopt",
-      youiFullOpt := "-fullopt"
+      youiFullOpt := ""
     )
     CrossApplication(
       js = Project(s"${id}JS", new File(dir, "js")).settings(defaultSettings),
