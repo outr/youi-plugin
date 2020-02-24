@@ -2,7 +2,7 @@ package io.youi.plugin
 
 import sbt._
 
-import scala.reflect.macros.Context
+import scala.reflect.macros.whitebox
 
 case class CrossApplication(js: Project, jvm: Project) {
   def dependsOn(deps: CrossApplicationDependencies*): CrossApplication = {
@@ -47,7 +47,7 @@ case class CrossApplication(js: Project, jvm: Project) {
 }
 
 object CrossApplication {
-  def partial(c: Context): c.Expr[PartialCrossApplication] = {
+  def partial(c: whitebox.Context): c.Expr[PartialCrossApplication] = {
     import c.universe._
 
     val enclosingValName = definingValName(c, methodName =>
@@ -56,7 +56,7 @@ object CrossApplication {
     reify(new PartialCrossApplication(name.splice))
   }
 
-  private def definingValName(c: Context, invalidEnclosingTree: String => String): String = {
+  private def definingValName(c: whitebox.Context, invalidEnclosingTree: String => String): String = {
     import c.universe._
 
     val methodName = c.macroApplication.symbol.name
@@ -64,8 +64,9 @@ object CrossApplication {
     // trim is not strictly correct, but macros don't expose the API necessary
     def processName(n: Name): String = n.decodedName.toString.trim
 
-    def enclosingVal(trees: List[c.Tree]): String = trees match {
-      case vd @ ValDef(_, name, _, _) :: ts =>
+    @scala.annotation.tailrec
+    def enclosingVal(trees: List[whitebox.Context#Tree]): String = trees match {
+      case ValDef(_, name, _, _) :: _ =>
         processName(name)
 
       case (_: Apply | _: Select | _: TypeApply) :: xs =>
@@ -83,7 +84,7 @@ object CrossApplication {
     enclosingVal(enclosingTrees(c).toList)
   }
 
-  def enclosingTrees(c: Context): Seq[c.Tree] =
+  def enclosingTrees(c: whitebox.Context): Seq[c.Tree] =
     c.asInstanceOf[reflect.macros.runtime.Context].callsiteTyper.
       context.enclosingContextChain.map(_.tree.asInstanceOf[c.Tree])
 }

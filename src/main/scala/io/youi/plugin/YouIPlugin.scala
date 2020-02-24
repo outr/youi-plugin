@@ -2,7 +2,7 @@ package io.youi.plugin
 
 import sbt._
 import Keys._
-import org.scalajs.sbtplugin.cross.CrossProject
+import sbtcrossproject.CrossProject
 
 import scala.language.experimental.macros
 import scala.language.implicitConversions
@@ -23,8 +23,8 @@ object YouIPlugin extends AutoPlugin {
       CrossApplicationDependencies(ClasspathDependency(ca.js, None), ClasspathDependency(ca.jvm, None))
     }
 
-    implicit def crossProjectDependency(cp: CrossProject): CrossApplicationDependencies = {
-      CrossApplicationDependencies(ClasspathDependency(cp.js, None), ClasspathDependency(cp.jvm, None))
-    }
+//    implicit def crossProjectDependency(cp: CrossProject): CrossApplicationDependencies = {
+//      CrossApplicationDependencies(cp.js, cp.jvm)
+//    }
   }
 }

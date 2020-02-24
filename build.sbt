@@ -2,16 +2,10 @@ name := "youi-plugin"
 organization := "io.youi"
 version := "1.1.1-SNAPSHOT"
 sbtPlugin := true
-crossSbtVersions := Vector("0.13.18", "1.3.2")
 
-// Workaround for https://github.com/sbt/sbt/issues/3393
-// This will be solved in sbt 0.13.17
-libraryDependencies += {
-  val currentSbtVersion = (sbtBinaryVersion in pluginCrossBuild).value
-  Defaults.sbtPluginExtra("org.scala-js" % "sbt-scalajs" % "0.6.22", currentSbtVersion, (scalaBinaryVersion in update).value)
-}
-
-//addSbtPlugin("org.scala-js" % "sbt-scalajs" % "0.6.29")
+addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.0.0-RC2")
+addSbtPlugin("org.scala-js" % "sbt-jsdependencies" % "1.0.0-RC2")
+addSbtPlugin("org.portable-scala" % "sbt-scalajs-crossproject" % "1.0.0")
 
 libraryDependencies += "org.scala-lang" % "scala-reflect" % scalaVersion.value
 
@@ -19,7 +13,7 @@ publishTo in ThisBuild := sonatypePublishTo.value
 sonatypeProfileName in ThisBuild := "io.youi"
 publishMavenStyle in ThisBuild := true
 licenses in ThisBuild := Seq("MIT" -> url("https://github.com/outr/youi-plugin/blob/master/LICENSE"))
-sonatypeProjectHosting in ThisBuild := Some(xerial.sbt.Sonatype.GithubHosting("outr", "youi-template", "matt@outr.com"))
+sonatypeProjectHosting in ThisBuild := Some(xerial.sbt.Sonatype.GitHubHosting("outr", "youi-template", "matt@outr.com"))
 homepage in ThisBuild := Some(url("https://github.com/outr/youi-template"))
 scmInfo in ThisBuild := Some(
   ScmInfo(

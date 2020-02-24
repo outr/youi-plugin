@@ -4,6 +4,9 @@ import sbt._
 import Keys._
 import org.scalajs.sbtplugin.ScalaJSPlugin
 import org.scalajs.sbtplugin.ScalaJSPlugin.autoImport._
+import org.scalajs.jsdependencies.sbtplugin.JSDependenciesPlugin
+import org.scalajs.jsdependencies.sbtplugin.JSDependenciesPlugin.autoImport._
+import org.portablescala.sbtplatformdeps.PlatformDepsPlugin.autoImport._
 
 class PartialCrossApplication(id: String) {
   import YouIPlugin.autoImport._
@@ -52,7 +55,8 @@ class PartialCrossApplication(id: String) {
       artifactPath in Test in packageMinifiedJSDependencies := youiPath.value / s"application-jsdeps.min.js${youiAddExtension.value}",
       skip in packageJSDependencies := false
     ).enableJSPlugins(
-      ScalaJSPlugin
+      ScalaJSPlugin,
+      JSDependenciesPlugin
     ).jvmSettings(
       libraryDependencies ++= (if (youiInclude.value) {
         assert(youiVersion.value.nonEmpty, "youiVersion must be set to the version of youi you wish to use.")
