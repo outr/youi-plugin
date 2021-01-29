@@ -1,6 +1,6 @@
 name := "youi-plugin"
 organization := "io.youi"
-version := "1.2.0-SNAPSHOT"
+version := "1.2.0"
 sbtPlugin := true
 
 addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.4.0")
