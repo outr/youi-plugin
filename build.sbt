@@ -1,10 +1,10 @@
 name := "youi-plugin"
 organization := "io.youi"
-version := "1.1.1"
+version := "1.2.0-SNAPSHOT"
 sbtPlugin := true
 
-addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.0.1")
-addSbtPlugin("org.scala-js" % "sbt-jsdependencies" % "1.0.0")
+addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.4.0")
+addSbtPlugin("org.scala-js" % "sbt-jsdependencies" % "1.0.2")
 addSbtPlugin("org.portable-scala" % "sbt-scalajs-crossproject" % "1.0.0")
 
 libraryDependencies += "org.scala-lang" % "scala-reflect" % scalaVersion.value

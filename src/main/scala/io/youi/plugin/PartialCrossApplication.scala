@@ -45,10 +45,16 @@ class PartialCrossApplication(id: String) {
         makeCrossSources(Some(sharedSource / "test" / "scala"), scalaBinaryVersion.value, crossPaths.value)
       }
     ).jsSettings(
+      Compile / fastLinkJS / scalaJSLinkerOutputDirectory := youiPath.value,
+      Compile / fullLinkJS / scalaJSLinkerOutputDirectory := youiPath.value,
+      Test / fastLinkJS / scalaJSLinkerOutputDirectory := youiPath.value,
+      Test / fullLinkJS / scalaJSLinkerOutputDirectory := youiPath.value,
+
       artifactPath in Compile in fastOptJS := youiPath.value / s"application${youiFastOpt.value}.js${youiAddExtension.value}",
       artifactPath in Test in fastOptJS := youiPath.value / s"application${youiFastOpt.value}.js${youiAddExtension.value}",
       artifactPath in Compile in fullOptJS := youiPath.value / s"application${youiFullOpt.value}.js${youiAddExtension.value}",
       artifactPath in Test in fullOptJS := youiPath.value / s"application${youiFullOpt.value}.js${youiAddExtension.value}",
+
       artifactPath in Compile in packageJSDependencies := youiPath.value / s"application-jsdeps.js${youiAddExtension.value}",
       artifactPath in Test in packageJSDependencies := youiPath.value / s"application-jsdeps.js${youiAddExtension.value}",
       artifactPath in Compile in packageMinifiedJSDependencies := youiPath.value / s"application-jsdeps.min.js${youiAddExtension.value}",
